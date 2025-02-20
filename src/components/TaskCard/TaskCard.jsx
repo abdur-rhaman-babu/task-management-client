@@ -7,11 +7,13 @@ const TaskCard = ({ task, onDragStart }) => {
 
   return (
     <div
-      className="bg-white dark:bg-dark dark:border-border p-3 rounded-lg border border-gray-200 w-full transition duration-300"
+      className="bg-white dark:bg-dark dark:border-border p-3 rounded-lg border border-gray-200 w-full flex flex-col justify-between h-full transition duration-300"
       draggable
       onDragStart={onDragStart}
     >
-      <div className="flex justify-between items-start">
+      {/* Top Section: Task Details & Buttons */}
+      <div className="flex justify-between items-start flex-grow">
+        {/* Left: Task Details */}
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-dark dark:text-white">
             {title}
@@ -27,6 +29,7 @@ const TaskCard = ({ task, onDragStart }) => {
           </p>
         </div>
 
+        {/* Right: Buttons in a Column */}
         <div className="flex flex-col space-y-2 ml-4">
           <button className="p-2 bg-primary text-white rounded-full hover:bg-green-700 transition">
             <FaEdit />
@@ -37,7 +40,8 @@ const TaskCard = ({ task, onDragStart }) => {
         </div>
       </div>
 
-      <div className="mt-3">
+      {/* Bottom: Full-Width Category Dropdown */}
+      <div className="mt-auto pt-3">
         <label className="text-sm text-gray-500 dark:text-gray-400">
           Change Category:
         </label>
