@@ -10,7 +10,9 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 
+
 const Navbar = () => {
+  
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
