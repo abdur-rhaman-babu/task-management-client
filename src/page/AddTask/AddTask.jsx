@@ -12,6 +12,7 @@ const AddTask = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data)
     const taskRes = await axiosPublic.post('/task', data);
     if(taskRes.data.insertedId){
       toast.success('Task is added')
