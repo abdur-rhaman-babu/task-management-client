@@ -11,6 +11,7 @@ export default {
         primary: "#58a296", 
         secondary: "#1f2937", 
         dark: "#111827",
+        border: '#4b5563'
       },
     },
   },

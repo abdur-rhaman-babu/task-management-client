@@ -7,7 +7,7 @@ const useTask = () => {
     const {data: tasks=[], refetch} = useQuery({
         queryKey: ['task'],
         queryFn: async ()=>{
-            const res = await axiosPublic.get('/task')
+            const res = await axiosPublic.get('/tasks')
             return res.data;
         }
     })
