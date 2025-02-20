@@ -33,7 +33,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-md px-5 py-4 md:px-10 fixed w-full top-0 z-50">
+    <nav className="bg-white border-b dark:border-gray-600 dark:bg-dark shadow-md px-5 py-4 md:px-10 fixed w-full top-0 z-50">
       <div className="flex justify-between items-center">
       <div className="flex items-center gap-2">
       <img className="h-10 w-10" src={logo} alt="" />
@@ -51,7 +51,7 @@ const Navbar = () => {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-2 text-dark font-semibold dark:text-gray-200 hover:text-primary ${
+                `flex items-center gap-2 text-secondary font-semibold dark:text-gray-200 hover:text-primary ${
                   isActive ? "border-b-2 border-primary" : ""
                 }`
               }
@@ -62,7 +62,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="text-gray-800 dark:text-gray-200"
+            className="text-secondary dark:text-white"
           >
             {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
           </button>
@@ -71,7 +71,7 @@ const Navbar = () => {
         </div>
 
         <button
-          className="md:hidden text-gray-800 dark:text-gray-200"
+          className="md:hidden text-primary dark:text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <FaTimes size={25} /> : <FaBars size={25} />}
@@ -85,8 +85,8 @@ const Navbar = () => {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-2 text-gray-800 dark:text-gray-200 ${
-                  isActive ? "bg-blue-500 p-2 font-semibold text-white rounded-md" : ""
+                `flex items-center gap-2 text-secondary dark:text-white ${
+                  isActive ? "bg-primary p-2 font-semibold text-white rounded-md" : ""
                 }`
               }
               onClick={() => setIsOpen(false)}
@@ -97,7 +97,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="text-gray-800 dark:text-gray-200"
+            className="text-secondary dark:text-white"
           >
             {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
           </button>

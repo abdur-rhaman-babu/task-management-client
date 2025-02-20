@@ -5,7 +5,7 @@ const Main = () => {
   return (
     <div>
       <Nabvar />
-      <div className="mt-16">
+      <div className="py-20 dark:bg-dark">
         <Outlet />
       </div>
     </div>
