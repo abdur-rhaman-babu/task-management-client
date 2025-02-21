@@ -5,14 +5,15 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import useTask from "../../Hooks/useTask";
+import { Link } from "react-router-dom";
 
 const TaskCard = ({ task, onDragStart }) => {
   const { title, description, category, createdAt, _id } = task;
-  const [,refetch] = useTask()
-  const axiosPublic = useAxiosPublic()
+  const [, refetch] = useTask();
+  const axiosPublic = useAxiosPublic();
 
-  const handleDeleteTask =(id) =>{
-    console.log(id)
+  const handleDeleteTask = (id) => {
+    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -20,22 +21,22 @@ const TaskCard = ({ task, onDragStart }) => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then(async(result)  => {
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosPublic.delete(`/task/${id}`)
-        if(res.data.deletedCount > 0){
+        const res = await axiosPublic.delete(`/task/${id}`);
+        if (res.data.deletedCount > 0) {
           // toast.success(`${title} is deleted`)
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
-            icon: "success"
+            icon: "success",
           });
         }
-        refetch()
+        refetch();
       }
     });
-  }
+  };
 
   return (
     <div
@@ -43,9 +44,7 @@ const TaskCard = ({ task, onDragStart }) => {
       draggable
       onDragStart={onDragStart}
     >
-
       <div className="flex justify-between items-start flex-grow">
-      
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-dark dark:text-white">
             {title}
@@ -61,17 +60,20 @@ const TaskCard = ({ task, onDragStart }) => {
           </p>
         </div>
 
-     
         <div className="flex flex-col space-y-2 ml-4">
-          <button className="p-2 bg-primary text-white rounded-full hover:bg-green-700 transition">
-            <FaEdit />
-          </button>
-          <button onClick={()=>handleDeleteTask(_id)} className="p-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition">
+          <Link to={`/update/${_id}`}>
+            <button className="p-2 bg-primary text-white rounded-full hover:bg-green-700 transition">
+              <FaEdit />
+            </button>
+          </Link>
+          <button
+            onClick={() => handleDeleteTask(_id)}
+            className="p-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition"
+          >
             <FaTrash />
           </button>
         </div>
       </div>
-
 
       <div className="mt-auto pt-3">
         <label className="text-sm text-gray-500 dark:text-gray-400">

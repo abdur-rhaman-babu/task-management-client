@@ -3,7 +3,7 @@ import useTask from "../../Hooks/useTask";
 
 const Home = () => {
   const [tasks] = useTask()
-  console.log(tasks)
+  // console.log(tasks)
   return (
     <div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 lg:px-10 md:px-5 px-3">

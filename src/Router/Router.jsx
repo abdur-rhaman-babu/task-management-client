@@ -6,6 +6,7 @@ import Login from "../Auth/Login/Login";
 import Register from "../Auth/Register/Register";
 import MainAuth from "../Auth/MainAuth/MainAuth";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import UpdateTask from "../components/UpdateTask/UpdateTask";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,11 @@ export const router = createBrowserRouter([
             {
                 path:'/add-task',
                 element:<AddTask/>
+            },
+            {
+                path:'/update/:id',
+                element:<UpdateTask/>,
+                loader: ({params})=>fetch(`http://localhost:5000/task/${params.id}`)
             }
         ]
     },
