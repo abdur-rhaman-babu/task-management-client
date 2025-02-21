@@ -3,6 +3,7 @@ import updateImg from "../../assets/image/Update-bro.png";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import SectionTitle from './../SectionTitle/SectionTitle';
 const UpdateTask = () => {
   const axiosPublic = useAxiosPublic();
   const task = useLoaderData();
@@ -26,12 +27,10 @@ const UpdateTask = () => {
   };
 
   return (
-    <div className=" bg-white dark:bg-dark backdrop-blur-md p-6">
-      <h2 className="text-3xl font-bold text-secondary dark:text-white text-center mb-6">
-        Update Task
-      </h2>
+    <div className=" bg-white dark:bg-dark backdrop-blur-md">
+    <SectionTitle title='Update Task'/>
 
-      <div className="md:flex gap-10 items-center lg:max-w-7xl mx-auto">
+      <div className="md:flex gap-10 items-center lg:max-w-7xl mx-auto px-3 md:px-0">
         <div className="md:w-6/12">
           <img src={updateImg} alt="" />
         </div>
@@ -88,7 +87,7 @@ const UpdateTask = () => {
 
           <button
             type="submit"
-            className="w-full bg-primary  text-white font-semibold py-3 rounded-lg hover:shadow-lg transition duration-300"
+            className="w-full bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white font-semibold py-3 rounded-lg  transition duration-500"
           >
             Update Task
           </button>

@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b dark:border-gray-600 dark:bg-dark shadow-md px-5 py-4 md:px-10 fixed w-full top-0 z-50">
+    <nav className="bg-white/30 backdrop-blur-md border-b dark:border-gray-600 dark:bg-dark/30 shadow-md px-5 py-4 md:px-10 fixed w-full top-0 z-50">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <img className="h-10 w-10" src={logo} alt="" />

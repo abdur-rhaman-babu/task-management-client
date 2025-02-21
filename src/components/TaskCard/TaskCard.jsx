@@ -16,10 +16,10 @@ const TaskCard = ({ task, onDragStart }) => {
     console.log(id);
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to delete this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#58a296",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
@@ -29,7 +29,7 @@ const TaskCard = ({ task, onDragStart }) => {
           // toast.success(`${title} is deleted`)
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Your task has been deleted.",
             icon: "success",
           });
         }
@@ -40,7 +40,7 @@ const TaskCard = ({ task, onDragStart }) => {
 
   return (
     <div
-      className="bg-white dark:bg-dark dark:border-border p-3 rounded-lg border border-gray-200 w-full flex flex-col justify-between h-full transition duration-300"
+      className="bg-white dark:bg-dark dark:border-border cursor-pointer border-primary p-3 rounded-lg border w-full flex flex-col justify-between h-full transition-all duration-300 hover:scale-105"
       draggable
       onDragStart={onDragStart}
     >
@@ -79,7 +79,7 @@ const TaskCard = ({ task, onDragStart }) => {
         <label className="text-sm text-gray-500 dark:text-gray-400">
           Change Category:
         </label>
-        <select className="bg-gray-100 dark:bg-gray-700 dark:text-gray-300 text-gray-800 w-full p-3 rounded-md mt-1">
+        <select className="dark:bg-dark dark:border-border border-primary border dark:text-gray-300 text-gray-800 w-full p-3 rounded-md mt-1">
           <option value="to-do">To-Do</option>
           <option value="progress">In Progress</option>
           <option value="done">Done</option>

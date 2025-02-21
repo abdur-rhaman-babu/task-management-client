@@ -4,40 +4,42 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
+import { useNavigate } from "react-router-dom";
 const AddTask = () => {
   const axiosPublic = useAxiosPublic();
-  const {user} = useContext(AuthContext)
+  const navigate = useNavigate();
+  const { user, loading } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data)
+    // console.log(data)
 
     const tasks = {
       title: data.title,
       category: data.category,
       description: data.description,
-      email: user.email
-    }
-    console.log(tasks)
-    const taskRes = await axiosPublic.post('/tasks', tasks);
-    if(taskRes.data.insertedId){
-      toast.success('Task is added')
-      reset()
+      email: user.email,
+    };
+    // console.log(tasks)
+    const taskRes = await axiosPublic.post("/tasks", tasks);
+    if (taskRes.data.insertedId) {
+      toast.success("Task is added");
+      navigate("/");
+      reset();
     }
   };
 
   return (
-    <div className=" bg-white dark:bg-dark backdrop-blur-md p-6">
-      <h2 className="text-2xl font-bold text-secondary dark:text-white text-center mb-6">
-        Add New Task
-      </h2>
+    <div className=" bg-white dark:bg-dark backdrop-blur-md ">
+      <SectionTitle title="Add New Task" />
 
-      <div className="md:flex gap-10 items-center lg:max-w-7xl mx-auto">
+      <div className="md:flex gap-10 items-center lg:max-w-7xl lg:mx-auto md:px-3 px-2">
         <div className="md:w-6/12">
           <img src={task} alt="" />
         </div>
@@ -91,9 +93,13 @@ const AddTask = () => {
 
           <button
             type="submit"
-            className="w-full bg-primary  text-white font-semibold py-3 rounded-lg hover:shadow-lg transition duration-300"
+            className="w-full bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white font-semibold py-3 rounded-lg  transition duration-500"
           >
-            Add Task
+            {loading ? (
+              <span className="loading loading-spinner text-success"></span>
+            ) : (
+              "Add Task"
+            )}
           </button>
         </form>
       </div>
