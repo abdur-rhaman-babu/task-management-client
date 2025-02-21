@@ -1,12 +1,25 @@
 import { useForm } from "react-hook-form";
 import registerImage from "../../assets/image/Tablet login-bro.png";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
-  const axiosPublic = useAxiosPublic();
+  const {createUser,setUser, updataUserProfile, signInWithGoogle} = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  const handleGoogleLogin = ()=>{
+    signInWithGoogle()
+    .then(result=>{
+      setUser(result.user)
+      navigate('/add-task')
+      toast.success('login successfull')
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
   const {
     register,
     handleSubmit,
@@ -16,11 +29,21 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    const res = await axiosPublic.post("/register", data);
-    if (res.data.insertedId) {
-      toast.success("Account created successfully!");
-      reset();
+    const updateProfile = {
+      displayName: data.name,
+      userId: data.userId
     }
+    createUser(data.email, data.password)
+    .then(result=>{
+      console.log(result.user)
+      updataUserProfile(updateProfile)
+      setUser(result.user)
+      toast.success('User successfully Loggedin')
+      reset()
+      navigate('/add-task')
+    }).catch(err=>{
+      console.log(err)
+    })
   };
 
   return (
@@ -45,7 +68,7 @@ const Register = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-secondary dark:text-white font-semibold">
-                User ID 
+                User ID
               </label>
               <input
                 {...register("userId", { required: true })}
@@ -60,7 +83,7 @@ const Register = () => {
 
             <div>
               <label className="block text-secondary dark:text-white font-semibold">
-                Name 
+                Name
               </label>
               <input
                 {...register("name", { required: true })}
@@ -75,12 +98,11 @@ const Register = () => {
 
             <div>
               <label className="block text-secondary dark:text-white font-semibold">
-                Email 
+                Email
               </label>
               <input
                 {...register("email", {
                   required: true,
-                  pattern: /^\S+@\S+\.\S+$/,
                 })}
                 type="email"
                 className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-dark dark:text-white focus:ring-2 focus:ring-primary focus:outline-none transition duration-300"
@@ -93,7 +115,7 @@ const Register = () => {
 
             <div>
               <label className="block text-secondary dark:text-white font-semibold">
-                Password 
+                Password
               </label>
               <input
                 {...register("password", { required: true, minLength: 6 })}
@@ -120,7 +142,7 @@ const Register = () => {
             OR
           </div>
 
-          <button
+          <button onClick={handleGoogleLogin}
             type="button"
             className="w-full flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-dark text-gray-800 dark:text-white font-semibold py-3 rounded-lg transition duration-300"
           >

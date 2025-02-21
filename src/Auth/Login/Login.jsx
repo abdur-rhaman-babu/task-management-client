@@ -1,11 +1,24 @@
 import { useForm } from "react-hook-form";
 import task from "../../assets/image/Tablet login-bro.png";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { FaGoogle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-import { FaGoogle } from 'react-icons/fa';
-import { Link } from "react-router-dom";
 const Login = () => {
-  const axiosPublic = useAxiosPublic();
+const {signInUser, setUser, signInWithGoogle} = useContext(AuthContext)
+const navigate = useNavigate()
+const handleGoogleLogin = ()=>{
+  signInWithGoogle()
+  .then(result=>{
+    setUser(result.user)
+    navigate('/add-task')
+    toast.success('login successfull')
+  }).catch(err=>{
+    console.log(err)
+  })
+}
+
   const {
     register,
     handleSubmit,
@@ -15,11 +28,13 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    const taskRes = await axiosPublic.post("/task", data);
-    if (taskRes.data.insertedId) {
-      toast.success("Task is added");
-      reset();
-    }
+    signInUser(result=>{
+      console.log(result.user)
+      setUser(result.user)
+      reset()
+      navigate('/add-task')
+      toast.success('User succesfully login')
+    })
   };
 
   return (
@@ -40,7 +55,6 @@ const Login = () => {
             Login
           </h2>
 
-      
           <div>
             <label className="block text-secondary dark:text-white font-semibold">
               Email
@@ -48,7 +62,6 @@ const Login = () => {
             <input
               {...register("email", {
                 required: true,
-                pattern: /^\S+@\S+\.\S+$/,
               })}
               type="email"
               className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-dark dark:text-white focus:ring-2 focus:ring-primary focus:outline-none transition duration-300"
@@ -59,10 +72,9 @@ const Login = () => {
             )}
           </div>
 
-   
           <div>
             <label className="block text-secondary dark:text-white font-semibold">
-              Password 
+              Password
             </label>
             <input
               {...register("password", { required: true, minLength: 6 })}
@@ -77,7 +89,6 @@ const Login = () => {
             )}
           </div>
 
-          {/* Login Button */}
           <button
             type="submit"
             className="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:shadow-lg transition duration-300"
@@ -85,22 +96,18 @@ const Login = () => {
             Login
           </button>
 
-          {/* OR Divider */}
           <div className="text-center text-gray-500 dark:text-gray-400 text-sm">
             OR
           </div>
 
-          {/* Google Login Button */}
-          <button
+          <button onClick={handleGoogleLogin}
             type="button"
-           
             className="w-full flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-dark text-gray-800 dark:text-white font-semibold py-3 rounded-lg hover:shadow-md transition duration-300"
           >
             <FaGoogle className="text-lg" />
             <span>Sign in with Google</span>
           </button>
 
-          {/* Register Link */}
           <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-4">
             Don&apos;t have an account{" "}
             <Link
