@@ -2,8 +2,11 @@ import { useForm } from "react-hook-form";
 import task from "../../assets/image/Add tasks-bro.png";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 const AddTask = () => {
   const axiosPublic = useAxiosPublic();
+  const {user} = useContext(AuthContext)
   const {
     register,
     handleSubmit,
@@ -13,7 +16,15 @@ const AddTask = () => {
 
   const onSubmit = async (data) => {
     console.log(data)
-    const taskRes = await axiosPublic.post('/task', data);
+
+    const tasks = {
+      title: data.title,
+      category: data.category,
+      description: data.description,
+      email: user.email
+    }
+    console.log(tasks)
+    const taskRes = await axiosPublic.post('/tasks', tasks);
     if(taskRes.data.insertedId){
       toast.success('Task is added')
       reset()

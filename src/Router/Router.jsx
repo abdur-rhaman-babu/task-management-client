@@ -5,11 +5,12 @@ import AddTask from "../page/AddTask/AddTask";
 import Login from "../Auth/Login/Login";
 import Register from "../Auth/Register/Register";
 import MainAuth from "../Auth/MainAuth/MainAuth";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
         path:'/',
-        element:<Main/>,
+        element:<PrivateRoute><Main/></PrivateRoute>,
         children:[
             {
                 path:'/',
