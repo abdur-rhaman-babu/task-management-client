@@ -6,9 +6,11 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import useTask from "../../Hooks/useTask";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const TaskCard = ({ task, onDragStart }) => {
   const { title, description, category, createdAt, _id } = task;
+  const [taskCategory, setTaskCategory] = useState(category);
   const [, refetch] = useTask();
   const axiosPublic = useAxiosPublic();
 
@@ -36,6 +38,24 @@ const TaskCard = ({ task, onDragStart }) => {
         refetch();
       }
     });
+  };
+
+  const handleCategoryChange = async (event) => {
+    const newCategory = event.target.value;
+    setTaskCategory(newCategory);
+
+    try {
+      const response = await axiosPublic.patch(`/task/${_id}`, {
+        category: newCategory,
+      });
+      if (response.status === 200) {
+        toast.success("Category updated successfully!");
+        refetch();
+      }
+    } catch (error) {
+      toast.error("Failed to update category!");
+      setTaskCategory(category);
+    }
   };
 
   return (
@@ -79,10 +99,15 @@ const TaskCard = ({ task, onDragStart }) => {
         <label className="text-sm text-gray-500 dark:text-gray-400">
           Change Category:
         </label>
-        <select className="dark:bg-dark dark:border-border border-primary border dark:text-gray-300 text-gray-800 w-full p-3 rounded-md mt-1">
-          <option value="to-do">To-Do</option>
-          <option value="progress">In Progress</option>
-          <option value="done">Done</option>
+        <select
+          value={taskCategory}
+          onChange={handleCategoryChange}
+          className="dark:bg-dark dark:border-border border-primary border dark:text-gray-300 text-gray-800 w-full p-3 rounded-md mt-1"
+        >
+          <option disabled>Change Category</option>
+          <option value="To-Do⚒️">To-Do</option>
+          <option value="In Progress♻️">In Progress</option>
+          <option value="Done✅">Done</option>
         </select>
       </div>
     </div>

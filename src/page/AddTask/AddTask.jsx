@@ -82,9 +82,10 @@ const AddTask = () => {
               {...register("category", { required: true })}
               className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-secondary dark:text-white focus:ring-2 focus:ring-primary focus:outline-none transition duration-300"
             >
-              <option value="To-Do">To-Do</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Done">Done</option>
+              <option disabled>Change Category</option>
+              <option value="To-Do⚒️">To-Do</option>
+              <option value="In Progress♻️">In Progress</option>
+              <option value="Done✅">Done</option>
             </select>
             {errors.category && (
               <span className="text-red-600">This field is required</span>

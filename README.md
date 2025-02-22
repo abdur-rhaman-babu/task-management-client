@@ -1,8 +1,18 @@
-# React + Vite
+# Live link: https://task-management-applicat-3cb36.web.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# short description
+## Task Management App 📝
 
-Currently, two official plugins are available:
+**This app helps you stay organized by allowing you to add, edit, delete, and categorize tasks easily. Whether you're managing work, personal goals, or daily to-dos, you can keep everything in one place and update tasks as needed. Stay productive and in control of your tasks!** 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Dependencies
+**React router dom**
+**React hook form**
+**Firebase**
+**Trnstack Query**
+**Sweet Alert2**
+
+# Technologies
+**React Js**
+**Tailwind css**
+**MongoDB**

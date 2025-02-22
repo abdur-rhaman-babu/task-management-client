@@ -5,21 +5,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Register = () => {
   const {createUser,setUser, updataUserProfile, signInWithGoogle} = useContext(AuthContext)
   const navigate = useNavigate()
+  const axiosPublic = useAxiosPublic()
 
-  const handleGoogleLogin = ()=>{
-    signInWithGoogle()
-    .then(result=>{
-      setUser(result.user)
-      navigate('/add-task')
-      toast.success('login successfull')
-    }).catch(err=>{
-      console.log(err)
-    })
-  }
+  // const handleGoogleLogin = ()=>{
+  //   signInWithGoogle()
+  //   .then(result=>{
+  //     setUser(result.user)
+  //     navigate('/add-task')
+  //     toast.success('login successfull')
+  //   }).catch(err=>{
+  //     console.log(err)
+  //   })
+  // }
   const {
     register,
     handleSubmit,
@@ -38,16 +41,25 @@ const Register = () => {
       console.log(result.user)
       updataUserProfile(updateProfile)
       setUser(result.user)
-      toast.success('User successfully Loggedin')
-      reset()
-      navigate('/add-task')
+
+      const userInfo = {
+        userId: data.userId,
+        email: data.email,
+        displayName: data.name,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
+        toast.success('User successfully Login')
+        reset()
+        navigate('/add-task')
+      });
     }).catch(err=>{
       console.log(err)
     })
   };
 
   return (
-    <div className="bg-white dark:bg-dark p-6">
+    <div className="bg-white dark:bg-dark p-2">
       <h2 className="text-3xl font-bold text-secondary dark:text-white text-center mb-6">
         Create an Account
       </h2>
@@ -133,22 +145,23 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white font-semibold py-3 rounded-lg  transition duration-500"
+            className="w-full my-5 bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white font-semibold py-3 rounded-lg  transition duration-500"
           >
             Register
           </button>
 
-          <div className="text-center text-gray-500 dark:text-gray-400 text-sm mt-3">
+          <div className="text-center text-gray-500 dark:text-gray-400 text-sm mb-5">
             OR
           </div>
 
-          <button onClick={handleGoogleLogin}
+          {/* <button onClick={handleGoogleLogin}
             type="button"
             className="w-full flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-dark text-gray-800 dark:text-white font-semibold py-3 rounded-lg transition duration-300"
           >
             <FaGoogle className="text-lg" />
             <span>Sign up with Google</span>
-          </button>
+          </button> */}
+          <SocialLogin/>
 
           <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-4">
             Already have an account?{" "}

@@ -5,19 +5,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 const Login = () => {
 const {signInUser, setUser, signInWithGoogle} = useContext(AuthContext)
 const navigate = useNavigate()
-const handleGoogleLogin = ()=>{
-  signInWithGoogle()
-  .then(result=>{
-    setUser(result.user)
-    navigate('/add-task')
-    toast.success('login successfull')
-  }).catch(err=>{
-    console.log(err)
-  })
-}
+// const handleGoogleLogin = ()=>{
+//   signInWithGoogle()
+//   .then(result=>{
+//     setUser(result.user)
+//     navigate('/add-task')
+//     toast.success('login successfull')
+//   }).catch(err=>{
+//     console.log(err)
+//   })
+// }
 
   const {
     register,
@@ -100,13 +101,14 @@ const handleGoogleLogin = ()=>{
             OR
           </div>
 
-          <button onClick={handleGoogleLogin}
+          {/* <button onClick={handleGoogleLogin}
             type="button"
             className="w-full flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-dark text-gray-800 dark:text-white font-semibold py-3 rounded-lg hover:shadow-md transition duration-300"
           >
             <FaGoogle className="text-lg" />
             <span>Sign in with Google</span>
-          </button>
+          </button> */}
+          <SocialLogin/>
 
           <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-4">
             Don&apos;t have an account{" "}
